@@ -10,8 +10,12 @@ XXD = /usr/bin/env xxd
 PYTHON = /usr/bin/env python3
 
 build:
-	$(GCC) -mcpu=cortex-m3 -mthumb -Os -ffreestanding -nostdlib -nostartfiles -fno-builtin -Wl,-T,link.f1.ld -Wl,--gc-sections blinky.f1.c -o blinky.elf
-	$(OCPY) -O binary blinky.elf blinky.bin
+	$(GCC) -mcpu=cortex-m3 -mthumb -Os -ffreestanding -nostdlib -nostartfiles -fno-builtin -Wl,-T,blinky/link.f1.ld -Wl,--gc-sections blinky/blinky.f1.c -o blinky/blinky.elf
+	$(OCPY) -O binary blinky/blinky.elf blinky/blinky.bin
+
+payload:
+	$(GCC) -mcpu=cortex-m3 -mthumb -Os -nostartfiles -Wl,-T,ram.ld payload/entry.S payload/payload.c -o payload/payload.elf
+	$(OCPY) -O binary payload/payload.elf payload/payload.bin
 
 flash:
 	$(FLASH) write blinky.bin 0x08000000
@@ -33,6 +37,9 @@ showdump:
 showcatch:
 	$(HEXL) catch.bin
 
+upload_payload:
+	$(OCD) -f stlink.cfg -f target.cfg -c "init" -c "load_image \"./payload/payload.bin\" 0x20000000" -c "exit"
+
 lock:
 	$(OCD) -f stlink.cfg -f target.cfg -c "init" -c "halt" -c "stm32f1x lock 0" -c "shutdown"
 
@@ -45,14 +52,3 @@ diff:
 
 decode:
 	$(TR) -d '\r' < catch.txt | $(XXD) -r -p > catch.bin
-
-disassemble:
-	$(ODMP) \
-		-b binary \
-		-m arm \
-		-M force-thumb \
-		-D \
-		--adjust-vma=0x08000000 \
-		--start-address=0x08000008 \
-		--stop-address=0x0800004c \
-		catch.bin > catch.asm

@@ -59,10 +59,13 @@ void setup() {
 }
 
 void loop() {
-	int b = Serial1.read();
-	if (b >= 0) {
-		Serial.write((uint8_t)b);
-	}
+    int b = Serial1.read();
+
+    if (b >= 0) {
+        if (b < 0x10) Serial.print('0');
+        Serial.print(b, HEX);
+        Serial.print(' ');
+    }
 }
 
 void wait_for_magic() {
