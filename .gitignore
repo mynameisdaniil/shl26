@@ -1,0 +1,4 @@
+*.o
+*.elf
+data/
+.DS_store
