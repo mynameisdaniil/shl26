@@ -7,6 +7,8 @@
 ![](./img/arduino.png)
 
 ### Board support для Arduino
+Уствановить: https://github.com/earlephilhower/arduino-pico
+
 Слева на панели находим кнопку как на картинке (Boards, Менеджер Плат)
 ![](./img/arduino_rp2040.png)
 Нажимаем "УСТАНОВКА"

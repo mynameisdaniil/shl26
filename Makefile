@@ -20,7 +20,7 @@ payload:
 	$(OCPY) -O binary payload/payload.elf payload/payload.bin
 
 flash:
-	$(FLASH) write blinky.bin 0x08000000
+	$(FLASH) write ./blinky/blinky.bin 0x08000000
 	$(FLASH) reset
 
 flash_catch:
