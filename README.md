@@ -15,21 +15,22 @@
 для MacOS
 ```
 brew update
-brew install make hexyl arm-none-eabi-gcc stlink open-ocd screen
+brew install make hexyl stlink open-ocd screen
+brew install --cask gcc-arm-embedded
 ```
-или для Ubuntu
+или для Ubuntu/Debian
 ```
 sudo apt update
-sudo apt install  make hexyl gcc-arm-none-eabi stlink-tools openocd screen
+sudo apt install  make hexyl gcc-arm-none-eabi libnewlib-arm-none-eabi stlink-tools openocd screen
 ```
 или для Rocky / Alma / RHEL
 ```
 sudo dnf install epel-release
 
-sudo dnf install make hexyl arm-none-eabi-gcc-cs arm-none-eabi-binutils-cs arm-none-eabi-newlib stlink openocd screen
+sudo dnf install make hexyl arm-none-eabi-gcc-cs arm-none-eabi-newlib stlink openocd screen
 ```
 или для openSUSE
 ```
-sudo zypper install make hexyl cross-arm-none-eabi-gcc stlink openocd screen
+sudo zypper install make hexyl cross-arm-none-eabi-gcc cross-arm-none-eabi-newlib stlink openocd screen
 ```
 
